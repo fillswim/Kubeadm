@@ -4,6 +4,10 @@ kind: ServiceAccount
 metadata:
   name: nodelocaldns
   namespace: kube-system
+
+# 169.254.25.10 - NodelocalDNS IP
+# 10.96.0.10    - Cluster DNS Server IP
+
 ---
 apiVersion: v1
 kind: ConfigMap

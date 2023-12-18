@@ -11,7 +11,7 @@ spec:
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
     - blockSize: 26
-      cidr: 10.244.0.0/24
+      cidr: 10.244.0.0/24                       # Сеть для подов
       encapsulation: IPIPCrossSubnet
       natOutgoing: Enabled
       nodeSelector: all()
