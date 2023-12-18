@@ -5,6 +5,7 @@ metadata:
   name: nodelocaldns
   namespace: kube-system
 
+# cluster.local - cluster domain
 # 169.254.25.10 - NodelocalDNS IP
 # 10.96.0.10    - Cluster DNS Server IP
 
