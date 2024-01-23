@@ -1,0 +1,8 @@
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: longhorn-priorityclass
+value: 2000001000
+globalDefault: false
+description: "Longhorn PriorityClass"

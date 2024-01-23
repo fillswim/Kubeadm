@@ -18,4 +18,3 @@ spec:
   selector:
     app: longhorn-ui
   sessionAffinity: None
-
