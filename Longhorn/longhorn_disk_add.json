@@ -1,0 +1,13 @@
+[
+    {
+        "op":"add",
+        "path":"/spec/disks/default-disk-fd0000000000",
+        "value":{
+            "allowScheduling": true,
+            "evictionRequested": false,
+            "path": "/var/lib/longhorn/",
+            "storageReserved": 0,
+            "tags": []
+        }
+     }
+]

@@ -1,0 +1,7 @@
+[
+    {
+        "op":"replace",
+        "path":"/spec/disks/default-disk-fd0000000000/allowScheduling",
+        "value":true
+     }
+]

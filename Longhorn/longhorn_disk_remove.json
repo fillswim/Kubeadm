@@ -1,0 +1,6 @@
+[
+    {
+        "op":"remove",
+        "path":"/spec/disks/default-disk-fd0000000000"
+     }
+]
