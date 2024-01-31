@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+
+# kubectl apply -f Longhorn/Test_PVC/01-PVC.yaml
+# kubectl delete -f Longhorn/Test_PVC/01-PVC.yaml
+
+kind: PersistentVolumeClaim
+metadata:
+  name: claim-longhorn-pvc
+  namespace: volumes-sample
+
+spec:
+  # storageClassName: "longhorn"             # "longhorn" - PV удаляться при удалении PVC
+  storageClassName: "longhorn-retain"      # "longhorn-retain" - PV удаляться не будут
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi

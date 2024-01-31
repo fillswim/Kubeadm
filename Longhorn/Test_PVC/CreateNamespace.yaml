@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+
+# kubectl apply -f Longhorn/Test_PVC/CreateNamespace.yaml
+# kubectl delete -f Longhorn/Test_PVC/CreateNamespace.yaml
+
+kind: Namespace
+metadata:
+  name: volumes-sample

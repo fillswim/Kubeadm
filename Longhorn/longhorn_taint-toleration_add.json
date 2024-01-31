@@ -1,0 +1,7 @@
+[
+    {
+        "op":"replace",
+        "path":"/value",
+        "value":"key1=value1:NoSchedule"
+     }
+]
