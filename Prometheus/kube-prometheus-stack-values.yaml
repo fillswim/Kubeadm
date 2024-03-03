@@ -1,0 +1,24 @@
+grafana:
+  enabled: false
+
+## Deploy a Prometheus instance
+##
+prometheus:
+  enabled: true
+
+  service:
+
+    ## Port for Prometheus Service to listen on
+    ##
+    port: 9090
+
+    ## To be used with a proxy extraContainer port
+    targetPort: 9090
+
+    ## Loadbalancer IP
+    ## Only use if service.type is "LoadBalancer"
+    loadBalancerIP: "192.168.2.218"
+
+    ## Service type
+    ##
+    type: LoadBalancer

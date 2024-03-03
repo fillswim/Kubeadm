@@ -1,0 +1,172 @@
+global:
+  # -- Overrides the Docker registry globally for all images
+  imageRegistry: null
+
+  # To help compatibility with other charts which use global.imagePullSecrets.
+  # Allow either an array of {name: pullSecret} maps (k8s-style), or an array of strings (more common helm-style).
+  # Can be tempalted.
+  # global:
+  #   imagePullSecrets:
+  #   - name: pullSecret1
+  #   - name: pullSecret2
+  # or
+  # global:
+  #   imagePullSecrets:
+  #   - pullSecret1
+  #   - pullSecret2
+  imagePullSecrets: []
+
+replicas: 1
+
+## Create a headless service for the deployment
+headlessService: false
+
+## Should the service account be auto mounted on the pod
+automountServiceAccountToken: true
+
+## Create HorizontalPodAutoscaler object for deployment type
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPU: "60"
+  targetMemory: ""
+  behavior: {}
+
+## See `kubectl explain poddisruptionbudget.spec` for more
+## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+podDisruptionBudget: {}
+#  apiVersion: ""
+#  minAvailable: 1
+#  maxUnavailable: 1
+
+downloadDashboardsImage:
+  # -- The Docker registry
+  registry: docker.io
+  repository: curlimages/curl
+  tag: 7.85.0
+  sha: ""
+  pullPolicy: IfNotPresent
+
+# # Настройки LoadBalancer
+# service:
+#   enabled: true
+#   type: LoadBalancer
+#   loadBalancerIP: "192.168.2.219"
+#   loadBalancerClass: ""
+#   loadBalancerSourceRanges: []
+#   port: 80
+#   targetPort: 3000
+#     # targetPort: 4181 To be used with a proxy extraContainer
+#   ## Service annotations. Can be templated.
+#   annotations: {}
+#   labels: {}
+#   portName: service
+#   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
+#   appProtocol: ""
+
+# Настройки Ingress
+ingress:
+  enabled: true
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  ingressClassName: nginx
+  # Values can be templated
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  labels: {}
+  path: /
+
+  # pathType is only for k8s >= 1.1=
+  pathType: Prefix
+
+  hosts:
+    - grafana.fillswim.local
+  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+  ## Or for k8s > 1.19
+  # - path: /*
+  #   pathType: Prefix
+  #   backend:
+  #     service:
+  #       name: ssl-redirect
+  #       port:
+  #         name: use-annotation
+
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+serviceMonitor:
+  ## If true, a ServiceMonitor CRD is created for a prometheus operator
+  ## https://github.com/coreos/prometheus-operator
+  ##
+  enabled: false
+  path: /metrics
+  #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
+  labels: {}
+  interval: 30s
+  scheme: http
+  tlsConfig: {}
+  scrapeTimeout: 30s
+  relabelings: []
+  metricRelabelings: []
+  targetLabels: []
+
+resources: {}
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  type: pvc
+  enabled: true
+  # storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # selectorLabels: {}
+  ## Sub-directory of the PV to mount. Can be templated.
+  # subPath: ""
+  ## Name of an existing PVC. Can be templated.
+  # existingClaim:
+  ## Extra labels to apply to a PVC.
+  extraPvcLabels: {}
+
+  ## If persistence is not enabled, this allows to mount the
+  ## local storage in-memory to improve performance
+  ##
+  inMemory:
+    enabled: false
+    ## The maximum usage on memory medium EmptyDir would be
+    ## the minimum value between the SizeLimit specified
+    ## here and the sum of memory limits of all containers in a pod
+    ##
+    # sizeLimit: 300Mi
+
+# Administrator credentials when not using an existing secret (see below)
+adminUser: admin
+adminPassword: password
+
+# # Use an existing secret for the admin user.
+# admin:
+#   ## Name of the secret. Can be templated.
+#   existingSecret: "grafana-auth"
+#   userKey: admin-user
+#   passwordKey: admin-password

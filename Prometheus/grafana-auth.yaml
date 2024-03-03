@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+
+# kubectl apply -f /root/Kubeadm/Prometheus/grafana-auth.yaml
+
+kind: Secret
+metadata:
+  name: grafana-auth
+  namespace: monitoring
+stringData:
+  username: admin
+  password: password
