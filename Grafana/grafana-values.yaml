@@ -161,12 +161,12 @@ persistence:
     # sizeLimit: 300Mi
 
 # Administrator credentials when not using an existing secret (see below)
-adminUser: admin
-adminPassword: password
+# adminUser: admin
+# adminPassword: password
 
 # # Use an existing secret for the admin user.
-# admin:
-#   ## Name of the secret. Can be templated.
-#   existingSecret: "grafana-auth"
-#   userKey: admin-user
-#   passwordKey: admin-password
+admin:
+  ## Name of the secret. Can be templated.
+  existingSecret: "grafana-auth"
+  # userKey: admin-user
+  # passwordKey: admin-password
