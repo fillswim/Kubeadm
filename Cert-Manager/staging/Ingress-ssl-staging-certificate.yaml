@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+
+# kubectl apply -f Cert-Manager/staging/Ingress-ssl-staging-certificate.yaml
+# kubectl delete -f Cert-Manager/staging/Ingress-ssl-staging-certificate.yaml
+
+kind: Ingress
+metadata:
+  name: nginx.fillswim.com-ingress-certificate-hand
+  # namespace: ssl-test
+
+spec:
+  tls:
+    - hosts: 
+      - nginx.fillswim.com                                                  # домен, на который будет получен сертификат
+      secretName: nginx.fillswim.com-ssl-letsencrypt-staging-certificate    # имя секрета, в котором будет храниться сертификат
+  ingressClassName: nginx
+  rules:
+  - host: nginx.fillswim.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nginx-service # Название сервиса, на который будет отправляться запрос
+            port: 
+              number: 81

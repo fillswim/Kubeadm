@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+
+# kubectl apply -f Cert-Manager/staging/Certificate.yaml
+# kubectl delete -f Cert-Manager/staging/Certificate.yaml
+
+kind: Certificate
+metadata:
+  name: nginx.fillswim.com-certificate-hand
+spec:
+  secretName: nginx.fillswim.com-ssl-letsencrypt-staging-certificate    # имя секрета, в котором будет храниться сертификат
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-staging                                           # название ClusterIssuer
+  commonName: nginx.fillswim.com
+  dnsNames:
+  - nginx.fillswim.com
