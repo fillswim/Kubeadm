@@ -1,11 +1,11 @@
 apiVersion: networking.k8s.io/v1
 
-# kubectl apply -f Cert-Manager/staging/Ingress-ssl-staging-certificate.yaml
-# kubectl delete -f Cert-Manager/staging/Ingress-ssl-staging-certificate.yaml
+# kubectl apply -f Cert-Manager/01-Staging/03-Ingress-SSL-Staging-Certificate.yaml
+# kubectl delete -f Cert-Manager/01-Staging/03-Ingress-SSL-Staging-Certificate.yaml
 
 kind: Ingress
 metadata:
-  name: nginx.fillswim.com-ingress-certificate-hand
+  name: ingress-letsencrypt-nginx.fillswim.com-staging-certfile
   # namespace: ssl-test
 
 spec:

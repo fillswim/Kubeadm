@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+
+# kubectl apply -f Cert-Manager/02-Production/03-Ingress-SSL-Production-Annotation.yaml
+# kubectl delete -f Cert-Manager/02-Production/03-Ingress-SSL-Production-Annotation.yaml
+
+kind: Ingress
+metadata:
+  name: ingress-letsencrypt-nginx.fillswim.com-production-annotation
+  # namespace: ssl-test
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"                   # cluster-issuer, который будет выдавать сертификат
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+
+spec:
+  tls:
+    - hosts: 
+      - nginx.fillswim.com                                                    # домен, на который будет получен сертификат
+      secretName: nginx.fillswim.com-ssl-letsencrypt-production-annotation    # имя секрета, в котором будет храниться сертификат
+  ingressClassName: nginx
+  rules:
+  - host: nginx.fillswim.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nginx-service # Название сервиса, на который будет отправляться запрос
+            port: 
+              number: 81

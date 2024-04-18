@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 
-# kubectl apply -f Cert-Manager/staging/Certificate.yaml
-# kubectl delete -f Cert-Manager/staging/Certificate.yaml
+# kubectl apply -f Cert-Manager/01-Staging/02-Certificate.yaml
+# kubectl delete -f Cert-Manager/01-Staging/02-Certificate.yaml
 
 kind: Certificate
 metadata:

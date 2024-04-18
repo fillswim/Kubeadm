@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 
-# kubectl apply -f Cert-Manager/staging/ClusterIssuer-staging.yaml
-# kubectl delete -f Cert-Manager/staging/ClusterIssuer-staging.yaml
+# kubectl apply -f Cert-Manager/01-Staging/01-ClusterIssuer-Staging.yaml
+# kubectl delete -f Cert-Manager/01-Staging/01-ClusterIssuer-Staging.yaml
 
 kind: ClusterIssuer
 metadata:
