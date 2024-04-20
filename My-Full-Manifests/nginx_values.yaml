@@ -1,0 +1,23 @@
+# Nginx values for my template Helm Chart
+
+# Образ
+container:
+  image: nginx:latest
+
+# Порт на контейнере
+containerPort: 80
+
+# Порт на сервисе
+servicePort: 81
+
+# Ограничение по CPU
+cpuUtilization: 50
+
+# Ограничение по памяти
+memoryUtilization: 80
+
+# Адрес публикации
+host: nginx.fillswim.local
+
+# Класс Ingress контроллера
+ingressClassName: nginx

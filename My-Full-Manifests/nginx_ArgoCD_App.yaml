@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+# kubectl apply -f My-Full-Manifests/nginx_ArgoCD_App.yaml
+# kubectl delete -f My-Full-Manifests/nginx_ArgoCD_App.yaml
+
+metadata:
+  name: my-nginx-app                                    # Название создаваемого Argo CD application
+  namespace: argo-cd                                    # namespace, в котором будет создаваться Argo CD application
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+
+spec:
+
+  project: default
+
+  destination:
+    name: in-cluster                                    # Деплой в этот же кластер
+    namespace: my-nginx                                 # В какой namespace будет производиться деплой
+
+  sources:
+  - repoURL: 'https://fillswim.github.io/HelmChats'     # Репозиторий с Helm чартом
+    chart: my-template-helmchart                        # Наименование Helm чарта
+    targetRevision: 0.0.8                               # Версия Helm чарта
+    helm:
+      releaseName: my-nginx-argocd-deploy               # Название релиза
+      valueFiles:
+      - $values/NginxApp/nginx_values.yaml
+  - repoURL: 'https://github.com/fillswim/ArgoCD.git'   # Репозиторий с values
+    targetRevision: main
+    ref: values
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

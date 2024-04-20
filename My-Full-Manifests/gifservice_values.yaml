@@ -1,0 +1,23 @@
+# Gigservice values for my template Helm Chart
+
+# Образ
+container:
+  image: fillswim/mygifservice:latest
+
+# Порт на контейнере
+containerPort: 8080
+
+# Порт на сервисе
+servicePort: 8080
+
+# Ограничение по CPU
+cpuUtilization: 50
+
+# Ограничение по памяти
+memoryUtilization: 80
+
+# Адрес публикации
+host: gifservice.fillswim.local
+
+# Класс Ingress контроллера
+ingressClassName: nginx
